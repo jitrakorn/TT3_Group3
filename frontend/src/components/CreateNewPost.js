@@ -12,11 +12,13 @@ const CreatePost = (props) => {
     const handleSubmission = () => {
         var url = document.getElementById("imagePath").value;
         var content = document.getElementById("content").value;
-
+        console.log(url)
+        console.log(content)
     };
 
     return(
         <div>
+
             <h1>New Post</h1>
             <div className='parent'>
                 <div className='child inline-block-child'>
