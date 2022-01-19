@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
 
+// class CreatePost extends React.Component {
+//   render() {
+//     return {
+//       <div>
+//         <img src="img_girl.jpg" alt="profile pic" width="500" height="600">
+//       </div>
+//     }
+//   }
+// }
+
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+          <div>
+              <h2>New Post</h2>
+              <img alt="profile pic" width="50" height="50"/>
+          </div>
+          <div>
+              <img src="logo192.png" alt="profile pic" width="50" height="50"/>
+              <h3>username</h3>
+          </div>
+
+      </div>
+
   );
 }
 
