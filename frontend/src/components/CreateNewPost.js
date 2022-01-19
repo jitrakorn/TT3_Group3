@@ -21,9 +21,13 @@ const CreatePost = () => {
             </div>
 
             <div>
-                <input type="file" name="file" onChange={changeHandler} />
+                <div>
+                    <h3>Please enter url for image</h3>
+                    <input type="url" id="imagePath"/>
+                </div>
+
                 <div className='child inline-block-child-flex'>
-                    <textarea type={"text"} rows={10} cols={50}/>
+                    <textarea type="text" id="content" rows={10} cols={50} placeholder="Please enter your content"/>
                 </div>
                 <button onClick={handleSubmission}>Submit</button>
             </div>
