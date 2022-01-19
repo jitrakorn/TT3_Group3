@@ -13,12 +13,14 @@ code {
 }
 
 
-.inline-block-child {
+.parent {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 50%;
-  margin-top: 50px;
+
+  margin-left: auto;
+  margin-right:auto;
+}
+.inline-block-child {
 
 
 }

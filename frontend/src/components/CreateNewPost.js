@@ -1,5 +1,5 @@
 import React, { Component , useState} from "react";
-
+import "bootstrap/dist/css/bootstrap.css";
 const CreatePost = (props) => {
 
     let Username = "Username"
@@ -18,28 +18,32 @@ const CreatePost = (props) => {
 
     return(
         <div>
-
-            <h1>New Post</h1>
-            <div className='parent'>
-                <div className='child inline-block-child'>
-                    <img src={dp_url} alt="profile_pic" width="50" height="50"/>
+            <div class="col-xs-1" align="center">
+                <div class="col-xs-1" align="center">
+                    <h1>New Post</h1>
                 </div>
-                <div className='child inline-block-child'>
+
+                <div className="col-xs-1" align="center">
+                    <img src={dp_url} alt="profile_pic" width="80" height="80"/>
+                </div>
+                <div className="col-xs-1" align="center">
                     <h3>{Username}</h3>
                 </div>
-            </div>
 
-            <div>
-                <div className='child inline-block-child'>
+            <div className="col-xs-1" align="center">
 
-                    <h3>Please enter url for image</h3>
-                    <input type="url" id="imagePath"/>
-                </div>
-                <div className='child inline-block-child'>
-                    <textarea type="text" id="content" rows={10} cols={50} placeholder="Please enter your content"/>
-                </div>
-                <button onClick={handleSubmission}>Submit</button>
+                <h3>Please enter url for image</h3>
+                <input type="url" id="imagePath"/>
             </div>
+            <br/>
+            <div className="col-xs-1" align="center">
+                <textarea type="text" id="content" rows={10} cols={50} placeholder="Please enter your content"/>
+            </div>
+                <div className="col-xs-1" align="center">
+            <button onClick={handleSubmission}>Submit</button>
+                </div>
+
+        </div>
         </div>
     )
 };
