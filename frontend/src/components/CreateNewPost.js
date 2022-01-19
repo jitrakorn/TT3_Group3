@@ -2,14 +2,17 @@ import React, { Component , useState} from "react";
 
 const CreatePost = (props) => {
 
-    const Username = "Username"
-    const dp_url = "https://www.iconfinder.com/icons/2426035/login_user_id_ui_avatar_account_people_icon"
+    let Username = "Username"
+    let dp_url = "https://www.shareicon.net/data/128x128/2017/06/21/887406_man_512x512.png"
     if (props.data !== "" || props.data != null)  {
         //
     }
 
 
     const handleSubmission = () => {
+        var url = document.getElementById("imagePath").value;
+        var content = document.getElementById("content").value;
+
     };
 
     return(
@@ -25,11 +28,12 @@ const CreatePost = (props) => {
             </div>
 
             <div>
-                <div>
+                <div className='child inline-block-child'>
+
                     <h3>Please enter url for image</h3>
                     <input type="url" id="imagePath"/>
                 </div>
-                <div className='child inline-block-child-flex'>
+                <div className='child inline-block-child'>
                     <textarea type="text" id="content" rows={10} cols={50} placeholder="Please enter your content"/>
                 </div>
                 <button onClick={handleSubmission}>Submit</button>
