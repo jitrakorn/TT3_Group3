@@ -26,27 +26,31 @@ const Home = () => {
             {posts.map(post => (
                 <div style={postStyle}>
                     <h2> {post.Post_Title} </h2>
-                    <span> {post.Post_Description} </span> <br/>
+                    <span> {post.Post_Description} </span> <br />
                     {
                         post.Post_image.includes('format=mp4') ?
-                        <video width ='100%' loop autoPlay muted>
-                            <source src={post.Post_image} />  
-                        </video> :
-                        <img style={{width: '100%'}} src = {post.Post_image} />
-                    } <br/>
-                    
+                            <video width='100%' loop autoPlay muted>
+                                <source src={post.Post_image} />
+                            </video> :
+                            <img style={{ width: '100%' }} src={post.Post_image} />
+                    } <br />
 
-                    <span>Liked by </span>
-                    {likes.filter(like => like.Post_ID === post.Post_ID).map((like, index, arr) => (
-                        <span>
-                            {users.filter(user => user.User_ID === like.User_ID)[0].Name}{index === arr.length - 1 ? <span></span>:<span>, </span>}
-                        </span>
-                    ))}
-                    
+                    {likes.filter(like => like.Post_ID === post.Post_ID).length > 0 ?
+                        <>
+                            <span>Liked by </span>
+                            {likes.filter(like => like.Post_ID === post.Post_ID).map((like, index, arr) => (
+                                <span>
+                                    {users.filter(user => user.User_ID === like.User_ID)[0].Name}{index === arr.length - 1 ? <span></span> : <span>, </span>}
+                                </span>
+                            ))}
+                        </> :
+                        <span>Be the first to like!</span>
+                    }
+
                     {comments.filter(comment => comment.Post_ID === post.Post_ID).map(comment => (
                         <div style={commentStyle}>
-                            <b>{users.filter(user => user.User_ID === comment.User_ID)[0].Name}</b> <br/>
-                            {comment.Comment} <br/>
+                            <b>{users.filter(user => user.User_ID === comment.User_ID)[0].Name}</b> <br />
+                            {comment.Comment} <br />
                         </div>
                     ))}
 

@@ -37,12 +37,17 @@ const Profile = () => {
                     } <br/>
                     
 
-                    <span>Liked by </span>
-                    {likes.filter(like => like.Post_ID === post.Post_ID).map((like, index, arr) => (
-                        <span>
-                            {users.filter(user => user.User_ID === like.User_ID)[0].Name}{index === arr.length - 1 ? <span></span>:<span>, </span>}
-                        </span>
-                    ))}
+                    {likes.filter(like => like.Post_ID === post.Post_ID).length > 0 ?
+                        <>
+                            <span>Liked by </span>
+                            {likes.filter(like => like.Post_ID === post.Post_ID).map((like, index, arr) => (
+                                <span>
+                                    {users.filter(user => user.User_ID === like.User_ID)[0].Name}{index === arr.length - 1 ? <span></span> : <span>, </span>}
+                                </span>
+                            ))}
+                        </> :
+                        <span>Be the first to like!</span>
+                    }
                     
                     {comments.filter(comment => comment.Post_ID === post.Post_ID).map(comment => (
                         <div style={commentStyle}>
