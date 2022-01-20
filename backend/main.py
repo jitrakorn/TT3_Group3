@@ -69,26 +69,16 @@ def create_user():
     db.session.commit()
     return jsonify({'message': 'New user created!'})
 
-@app.route('/login')
-def login():
-    auth = request.authorization
-
-    if not auth or not auth.username or not auth.password:
-        return jsonify({'Message': 'Failed Login'})
-
-    user = User.query.filter_by(Name=auth.username).first()
-
+@app.route('/login/<username>/<password>')
+def login(username, password):
+    user = User.query.filter_by(Name=username).first()
     if not user:
         return jsonify({'Message': 'Failed Login'})
 
+    if password == user.Password:
+        return jsonify({'Message': 'Logined'})
 
-    if check_password_hash(user.Password, auth.password):
-        if user.Password == auth.password:
-            return jsonify({'Message': 'Logined'})
-
-        return jsonify({'Message': 'Failed Login'})
-
-    return jsonify({'Message': 'Failed Login'})
+    return jsonify({'Message': 'Failed Login'}) 
 
 
 # @app.route('/user/<User_ID>', methods=['PUT'])
