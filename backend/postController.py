@@ -102,8 +102,20 @@ class PostController(Resource):
         # args = .parse_args()
         return
 
-    def delete(self):
-
+    @app.route('/deleteComments/<Post_ID>', methods=['DELETE'])
+    def delete(Post_ID):
+        cur = mysql.connection.cursor()
+        # alter table MyOtherTable nocheck constraint all
+# delete from MyTable
+# alter table MyOtherTable check constraint all
+        cur.execute("DELETE FROM post_comment WHERE Post_ID =3;")
+        cur.execute("DELETE FROM liked_post WHERE Post_ID =3;")
+        cur.execute("DELETE FROM post WHERE Post_ID =3;")
+        #cur.execute("", [Post_ID])
+        #cur.execute("SET FOREIGN_KEY_CHECKS=1;")
+# DELETE FROM post_comment WHERE Post_ID=%s; DELETE FROM liked_post where Post_ID=%s
+        mysql.connection.commit()
+        cur.close()
         return '', 204
 
 
