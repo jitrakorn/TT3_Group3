@@ -20,6 +20,17 @@ class User(db.Model):
     Country = db.Column('Country', db.String(50))
     Password = db.Column('Password', db.String(255))
     
+class Post(db.Model):
+    Post_ID = db.Column('Post_ID',db.Integer, primary_key=True)
+    Post_Title = db.Column('Post_Title',db.String(50))
+    Post_Description = db.Column('Post_Description',db.String(200))
+    Post_image = db.Column('Post_image',db.String(300))
+    User_ID = db.Column('User_ID',db.Integer)
+
+class Likes(db.Model):
+    User_ID = db.Column('User_ID',db.Integer)
+    Post_ID = db.Column('Post_ID',db.Integer)
+
 # For getting all users detail in json
 @app.route('/user', methods=['GET'])
 def get_all_users():
@@ -91,6 +102,46 @@ def delete_user(User_ID):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message' : 'The user has been deleted.'})
-    
+
+# For getting post
+@app.route('/getPost', methods=['GET'])
+def get_all_post():
+    posts = Post.query.all()
+    output = []
+    for user in posts:
+        user_data = {}
+        user_data['User_ID'] = user.User_ID # coming from db
+        user_data['Post_Title'] = user.Post_Title
+        user_data['Post_ID'] = user.Post_ID
+        user_data['Post_Description'] = user.Post_Description
+        user_data['Post_image'] = user.Post_image
+        output.append(user_data)
+
+    return jsonify({'users' : output})
+
+#For getting single post
+@app.route('/getPost/<User_ID>', methods=['GET'])
+def get_single_post(User_ID):
+    posts = Post.query.filter_by(User_ID=User_ID).first()
+    if not posts:
+        return jsonify({'Meesage': 'No Post Found!'})
+    user_data = {}
+    user_data['User_ID'] = posts.User_ID # coming from db
+    user_data['Post_Title'] = posts.Post_Title
+    user_data['Post_ID'] = posts.Post_ID
+    user_data['Post_Description'] = posts.Post_Description
+    user_data['Post_image'] = posts.Post_image
+    return jsonify({'post' : user_data})
+
+@app.route('/getLikes/<User_ID>', methods=['GET'])
+def get_single_post_likes(User_ID):
+    likes = Likes.query.all()
+    output = []
+    for like in likes: 
+        user_data = {}
+        user_data['User_ID'] = like.User_ID
+    return jsonify({'Message': 'Not comeplete'})
+
 if __name__ == '__main__':
     app.run(debug=True)
+
