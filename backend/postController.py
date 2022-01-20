@@ -1,13 +1,15 @@
 from flask import Flask, jsonify
 from flask_restful import abort, Api, Resource, reqparse, fields, marshal_with
+from flask_cors import CORS
 
 from flask_mysqldb import MySQL
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'crazyZ1@boi'
+app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'socialmedia'
 
 mysql = MySQL(app)
