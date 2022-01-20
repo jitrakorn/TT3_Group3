@@ -8,15 +8,16 @@ const Profile = () => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [user, getUser] = useState([]);
 
     useEffect(() => {
-        api.get(`/getPost`).then(res => {
+        api.get(`/getPost/1`).then(res => {
             setPosts(res.data);
         });
-        api.get(`/getLikes`).then(res => {
+        api.get(`/getLikes/1`).then(res => {
             setLikes(res.data);
         });
-        api.get(`/getComments`).then(res => {
+        api.get(`/getComments/1`).then(res => {
             setComments(res.data);
         })
     }, [])

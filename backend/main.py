@@ -8,7 +8,7 @@ import datetime
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secretkeyexample'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:OYW_1407_mop@localhost/socialmedia'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/socialmedia'
 
 db = SQLAlchemy(app)
 
