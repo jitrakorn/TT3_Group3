@@ -7,31 +7,43 @@ import Button from "react-bootstrap/Button";
 
 import "./Login.css";
 
+import axios from "axios";
+
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   let navigate = useNavigate();
 
-  const validateForm = (username, password) => {
-    // check if valid
-    return true;
-  };
-
-  const onSubmit = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (validateForm) navigate("/");
+
+    axios.get("http://localhost:5000/user").then((res) => {
+      console.log(res.data.users);
+
+      res.data.users.forEach((item) => {
+        console.log(item.Name);
+        console.log(item.Password);
+
+        if (item.Name === name && item.Password === password) {
+          console.log("Logging in");
+          navigate("/");
+        }
+      });
+    });
+
+    alert("Not a valid user");
   };
 
   return (
     <div className="Login">
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmitHandler}>
         <h1>Log In</h1>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">

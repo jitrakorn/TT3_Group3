@@ -6,8 +6,10 @@ import Button from "react-bootstrap/Button";
 
 import "./Login.css";
 
+import axios from "axios";
+
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -15,30 +17,37 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [details, setDetails] = useState({});
 
   let navigate = useNavigate();
 
   const validateForm = () => {
-    return username.length > 0 && password.length > 0;
-  };
-
-  const addUser = () => {
-    // call api to upload user
+    return name.length > 0 && password.length > 0;
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    details.username = username;
-    details.password = password;
-    details.age = age;
-    details.birthday = birthday;
-    details.email = email;
-    details.phone = phone;
-    details.city = city;
-    details.country = country;
+    // details.name = name;
+    // details.password = password;
+    // details.age = age;
+    // details.birthday = birthday;
+    // details.email = email;
+    // details.phone = phone;
+    // details.city = city;
+    // details.country = country;
 
-    console.log(details);
+    const details = {
+      name: name,
+      password: password,
+      age: age,
+      birthday: birthday,
+      email: email,
+      phone: phone,
+      city: city,
+      country: country,
+    };
+    axios.post("/user", details).then((res) => {
+      console.log(res.data);
+    });
 
     navigate("/login");
   };
@@ -52,8 +61,8 @@ const Register = () => {
           <Form.Control
             autoFocus
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">

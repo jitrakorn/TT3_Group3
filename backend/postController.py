@@ -6,8 +6,8 @@ app = Flask(__name__)
 api = Api(app)
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'crazyZ1@boi'
+app.config['MYSQL_USER'] = 'leowyh'
+app.config['MYSQL_PASSWORD'] = '1111'
 app.config['MYSQL_DB'] = 'socialmedia'
 
 mysql = MySQL(app)
