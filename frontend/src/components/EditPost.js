@@ -26,6 +26,9 @@ const EditPost = () => {
         <div className="col-xs-1" align="center">
             <h1>Edit Post</h1>
             <br/>
+            <img src={post['Post_image']} height={200} width={200}/>
+            <br/>
+            <br/>
             <input type="url" id="url" value={post['Post_image']} />
             <br/>
             <br/>
