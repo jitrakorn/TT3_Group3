@@ -2,8 +2,6 @@ from collections import UserList
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import jwt
-import datetime
 
 app = Flask(__name__)
 
@@ -65,7 +63,7 @@ def get_one_user(User_ID):
 @app.route('/user', methods=['POST'])
 def create_user():
     data = request.get_json()
-    hashed_password = generate_password_hash(data['password'], method='sha256')
+    hashed_password = data['password'] # can be hashed in the future
     new_user = User(Name=data['name'], Age=data['age'], Birthday=data['birthday'], Email=data['email'], Phone=data['phone'], City=data['city'], Country=data['country'], Password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
@@ -76,19 +74,23 @@ def login():
     auth = request.authorization
 
     if not auth or not auth.username or not auth.password:
-        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+        return jsonify({'Message': 'Failed Login'})
 
     user = User.query.filter_by(Name=auth.username).first()
 
     if not user:
-        return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+        return jsonify({'Message': 'Failed Login'})
+
 
     if check_password_hash(user.Password, auth.password):
-        token = jwt.encode({'User_ID' : user.User_ID, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        if user.Password == auth.password:
+            return jsonify({'Message': 'Logined'})
 
-        return jsonify({'token' : token.decode('UTF-8')})
+        return jsonify({'Message': 'Failed Login'})
 
-    return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+    return jsonify({'Message': 'Failed Login'})
+
+
 # @app.route('/user/<User_ID>', methods=['PUT'])
 # def update_user():
 #     return ''
