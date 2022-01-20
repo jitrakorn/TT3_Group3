@@ -42,9 +42,23 @@ def get_all_users():
 
     return jsonify({'users' : output})
 
-@app.route('/user', methods=['GET'])
-def get_one_user():
-    return ''
+@app.route('/user/<int:User_ID>', methods=['GET'])
+def get_one_user(User_ID):
+    user = User.query.filter_by(User_ID=User_ID).first()
+    if not user:
+        return jsonify({'Meesage': 'No User Found!'})
+    
+    user_data = {}
+    user_data['User_ID'] = user.User_ID # coming from db
+    user_data['Name'] = user.Name
+    user_data['Age'] = user.Age
+    user_data['Birthday'] = user.Birthday
+    user_data['Email'] = user.Email
+    user_data['Phone'] = user.Phone
+    user_data['City'] = user.City
+    user_data['Country'] = user.Country
+    user_data['Password'] = user.Password
+    return jsonify({'user' : user_data})
 
 @app.route('/user', methods=['POST'])
 def create_user():
@@ -55,11 +69,11 @@ def create_user():
     db.session.commit()
     return jsonify({'message': 'New user created!'})
 
-@app.route('/user/<public_id>', methods=['PUT'])
-def promote_user():
+@app.route('/user/<User_ID>', methods=['PUT'])
+def update_user():
     return ''
 
-@app.route('/user/<public_id>', methods=['DELETE'])
+@app.route('/user/<User_ID>', methods=['DELETE'])
 def delete_user():
     return ''
 
