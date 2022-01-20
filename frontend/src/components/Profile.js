@@ -36,7 +36,7 @@ const Profile = () => {
                 <div style={postStyle}>
                     <h2> {post[1]} </h2>
                     <div style={{textAlign: 'right'}}>
-                        <Link to={`/editPost/${post[1]}`}>Edit</Link> | <Link to="/editPost">Delete</Link>
+                        <Link to={`/editPost/${post[1]}`}>Edit</Link>
                     </div>
                     <span> {post[2]} </span> <br />
                     {

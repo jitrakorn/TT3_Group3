@@ -6,6 +6,8 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
+    const [search, setSearch] = useState('');
+    const [filteredPosts, setFilteredPosts] = useState([]);
 
     useEffect(() => {
         api.get(`/getPost`).then(res => {
@@ -17,47 +19,96 @@ const Home = () => {
         api.get(`/getComments`).then(res => {
             setComments(res.data);
         })
-    }, [])
+    }, []);
+
+    const onChange = (e) => {
+        setSearch(e.target.value)
+        setFilteredPosts(posts.filter(post => post[2].includes(search) || post[1].includes(search)));
+        console.log(filteredPosts);
+    }
 
     return (
-        <div >
+        <div>
             <h1>All Posts</h1>
             Welcome, user!&nbsp;
             <Link to="/profile">View Profile</Link>&nbsp;|&nbsp;
-            <Link to="/createPost">Create Post</Link>
-            {posts.map(post => (
-                <div style={postStyle}>
-                    <h2> {post[1]} </h2>
-                    <span> {post[2]} </span> <br />
-                    {
-                        post[3].includes('format=mp4') ?
-                            <video width='100%' loop autoPlay muted>
-                                <source src={post[3]} />
-                            </video> :
-                            <img style={{ width: '100%' }} src={post[3]} />
-                    } <br />
+            <Link to="/createPost">Create Post</Link><br />
+            Search: <input type="text" onChange={onChange}></input>
+            {
+                search.length === 0 ?
+                    <div>
+                        {posts.map(post => (
+                            <div style={postStyle}>
+                                <h2> {post[1]} </h2>
+                                <span> {post[2]} </span> <br />
+                                {
+                                    post[3].includes('format=mp4') ?
+                                        <video width='100%' loop autoPlay muted>
+                                            <source src={post[3]} />
+                                        </video> :
+                                        <img style={{ width: '100%' }} src={post[3]} />
+                                } <br />
 
-                    {likes.filter(like => like[0] === post[0]).length > 0 ?
-                        <>
-                            <span>Liked by </span>
-                            {likes.filter(like => like[0] === post[0]).map((like, index, arr) => (
-                                <span>
-                                    {like[1]}{index === arr.length - 1 ? <span></span> : <span>, </span>}
-                                </span>
-                            ))}
-                        </> :
-                        <span>Be the first to like!</span>
-                    }
+                                {likes.filter(like => like[0] === post[0]).length > 0 ?
+                                    <>
+                                        <span>Liked by </span>
+                                        {likes.filter(like => like[0] === post[0]).map((like, index, arr) => (
+                                            <span>
+                                                {like[1]}{index === arr.length - 1 ? <span></span> : <span>, </span>}
+                                            </span>
+                                        ))}
+                                    </> :
+                                    <span>Be the first to like!</span>
+                                }
 
-                    {comments.filter(comment => comment[0] === post[0]).map(comment => (
-                        <div style={commentStyle}>
-                            <b>{comment[2]}</b> <br />
-                            {comment[1]} <br />
-                        </div>
-                    ))}
+                                {comments.filter(comment => comment[0] === post[0]).map(comment => (
+                                    <div style={commentStyle}>
+                                        <b>{comment[2]}</b> <br />
+                                        {comment[1]} <br />
+                                    </div>
+                                ))}
 
-                </div>
-            ))}
+                            </div>
+                        ))}
+                    </div> :
+                    <div>
+                        {filteredPosts.map(post => (
+                            <div style={postStyle}>
+                                <h2> {post[1]} </h2>
+                                <span> {post[2]} </span> <br />
+                                {
+                                    post[3].includes('format=mp4') ?
+                                        <video width='100%' loop autoPlay muted>
+                                            <source src={post[3]} />
+                                        </video> :
+                                        <img style={{ width: '100%' }} src={post[3]} />
+                                } <br />
+
+                                {likes.filter(like => like[0] === post[0]).length > 0 ?
+                                    <>
+                                        <span>Liked by </span>
+                                        {likes.filter(like => like[0] === post[0]).map((like, index, arr) => (
+                                            <span>
+                                                {like[1]}{index === arr.length - 1 ? <span></span> : <span>, </span>}
+                                            </span>
+                                        ))}
+                                    </> :
+                                    <span>Be the first to like!</span>
+                                }
+
+                                {comments.filter(comment => comment[0] === post[0]).map(comment => (
+                                    <div style={commentStyle}>
+                                        <b>{comment[2]}</b> <br />
+                                        {comment[1]} <br />
+                                    </div>
+                                ))}
+
+                            </div>
+                        ))}
+                    </div>
+            }
+
+
         </div>
     );
 };
