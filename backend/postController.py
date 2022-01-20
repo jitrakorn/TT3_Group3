@@ -13,6 +13,15 @@ app.config['MYSQL_DB'] = 'socialmedia'
 mysql = MySQL(app)
 
 
+post_put_args = reqparse.RequestParser()
+post_put_args.add_argument(
+    "Post_Title", type=str, help="Title of the post", required=True)
+post_put_args.add_argument(
+    "Post_Description", type=str, help="Description of the post", required=True)
+post_put_args.add_argument(
+    "Post_Image", type=int, help="Attach an image", required=True)
+
+
 class PostController(Resource):
 
     # gets to retrieve all POSTS from database
@@ -118,8 +127,25 @@ class PostController(Resource):
         cur.close()
         return '', 204
 
+    @app.route('/insertPost/<name>', methods=['POST'])
+    def insertPost(name):
+        args = post_put_args.parse_args()
+        cur = mysql.connection.cursor()
+        postTitle = '"' + args['Post_Title'] + '"'
+        postDescription = '"' + args['Post_Description'] + '"'
+        postImage = '"' + args['Post_Image'] + '"'
 
-api.add_resource(PostController, "/getLikes/<int:Post_ID>")
+        id = cur.execute("SELECT User_ID from user where Name=%s", name)
+        combinedString = "INSERT INTO post(Post_Title, Post_Description, Post_Image, User_ID) VALUES(%s,%s,%s,%s)" % (
+            postTitle, postDescription, postImage, id)
+
+        print(combinedString)
+        cur.execute(combinedString)
+        mysql.connection.commit()
+        cur.close()
+
+        return
+
 
 if __name__ == "__main__":
     app.run(debug=True)
