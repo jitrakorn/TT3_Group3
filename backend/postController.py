@@ -24,7 +24,10 @@ class PostController(Resource):
         cur = mysql.connection.cursor()
         #cur.execute("SELECT post.Post_ID, post.Post_Title, post.Post_Description, post.Post_Image, liked_post.User_ID, liked_post.Post_ID, user.Name, user.User_ID, post_comment.Post_ID, post_comment.User_ID, post_comment.comment  FROM post, liked_post, user, post_comment WHERE post.Post_ID = liked_post.Post_ID && user.User_ID = liked_post.User_ID && user.User_ID = post_comment.User_ID && post.Post_ID = post_comment.Post_ID")
 
-        cur.execute("SELECT post.Post_ID, post.Post_Title, liked_post.User_ID, liked_post.Post_ID, user.Name, user.User_ID FROM post, liked_post, user WHERE post.Post_ID = liked_post.Post_ID && user.User_ID = liked_post.User_ID")
+        #cur.execute("SELECT post.Post_ID, post.Post_Title, liked_post.User_ID, liked_post.Post_ID, user.Name, user.User_ID FROM post, liked_post, user WHERE post.Post_ID = liked_post.Post_ID && user.User_ID = liked_post.User_ID")
+        cur.execute(
+            "SELECT post.Post_Title, post.Post_Description, post.Post_Image, user.Name FROM post, user WHERE post.User_ID = user.User_ID")
+
         test = cur.fetchall()
         print(test)
         resp = jsonify(test)
