@@ -16,17 +16,37 @@ mysql = MySQL(app)
 class PostController(Resource):
 
     # gets to retrieve all POSTS from database
-    def get(self):
-        # SELECT table1.id, table1.name, table2.id, table2.telephone
-        # FROM table1, table2
-        # WHERE table1.id = table2.id
-
+    @app.route('/getPost', methods=['GET'])
+    def get_all_post():
         cur = mysql.connection.cursor()
-        #cur.execute("SELECT post.Post_ID, post.Post_Title, post.Post_Description, post.Post_Image, liked_post.User_ID, liked_post.Post_ID, user.Name, user.User_ID, post_comment.Post_ID, post_comment.User_ID, post_comment.comment  FROM post, liked_post, user, post_comment WHERE post.Post_ID = liked_post.Post_ID && user.User_ID = liked_post.User_ID && user.User_ID = post_comment.User_ID && post.Post_ID = post_comment.Post_ID")
-
-        #cur.execute("SELECT post.Post_ID, post.Post_Title, liked_post.User_ID, liked_post.Post_ID, user.Name, user.User_ID FROM post, liked_post, user WHERE post.Post_ID = liked_post.Post_ID && user.User_ID = liked_post.User_ID")
         cur.execute(
-            "SELECT post.Post_Title, post.Post_Description, post.Post_Image, user.Name FROM post, user WHERE post.User_ID = user.User_ID")
+            "SELECT post.Post_ID, post.Post_Title, post.Post_Description, post.Post_Image, user.Name FROM post, user WHERE post.User_ID = user.User_ID")
+
+        test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
+
+    @app.route('/getLikes', methods=['GET'])
+    def get_all_likes():
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT liked_post.Post_ID, user.Name FROM liked_post, user WHERE liked_post.User_ID = user.User_ID ORDER BY liked_post.Post_ID ASC")
+
+        test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
+
+    @app.route('/getComments', methods=['GET'])
+    def get_all_comments():
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT post_comment.Post_ID, post_comment.Comment, user.Name FROM post_comment, user WHERE post_comment.User_ID = user.User_ID ")
 
         test = cur.fetchall()
         print(test)
@@ -45,7 +65,7 @@ class PostController(Resource):
         return '', 204
 
 
-api.add_resource(PostController, "/test")
+api.add_resource(PostController, "/getLikes/<int:Post_ID>")
 
 if __name__ == "__main__":
     app.run(debug=True)
