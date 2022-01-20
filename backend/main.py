@@ -27,9 +27,6 @@ class Post(db.Model):
     Post_image = db.Column('Post_image',db.String(300))
     User_ID = db.Column('User_ID',db.Integer)
 
-class Likes(db.Model):
-    User_ID = db.Column('User_ID',db.Integer)
-    Post_ID = db.Column('Post_ID',db.Integer)
 
 # For getting all users detail in json
 @app.route('/user', methods=['GET'])
@@ -133,14 +130,6 @@ def get_single_post(User_ID):
     user_data['Post_image'] = posts.Post_image
     return jsonify({'post' : user_data})
 
-@app.route('/getLikes/<User_ID>', methods=['GET'])
-def get_single_post_likes(User_ID):
-    likes = Likes.query.all()
-    output = []
-    for like in likes: 
-        user_data = {}
-        user_data['User_ID'] = like.User_ID
-    return jsonify({'Message': 'Not comeplete'})
 
 if __name__ == '__main__':
     app.run(debug=True)
