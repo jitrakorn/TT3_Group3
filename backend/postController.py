@@ -31,6 +31,19 @@ class PostController(Resource):
         print(resp)
         return resp
 
+    @app.route('/getPost/<User_ID>', methods=['GET'])
+    def get_single_post(User_ID):
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT post.Post_ID, post.Post_Title, post.Post_Description, post.Post_Image, user.Name FROM post, user WHERE post.User_ID = user.User_ID && post.User_ID= %s", [User_ID])
+
+        test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
+
     @app.route('/getLikes', methods=['GET'])
     def get_all_likes():
         cur = mysql.connection.cursor()
@@ -38,6 +51,22 @@ class PostController(Resource):
             "SELECT liked_post.Post_ID, user.Name FROM liked_post, user WHERE liked_post.User_ID = user.User_ID ORDER BY liked_post.Post_ID ASC")
 
         test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
+
+    @app.route('/getLikes/<User_ID>', methods=['GET'])
+    def get_single_post_likes(User_ID):
+        cur = mysql.connection.cursor()
+        # cur.execute("SELECT liked_post.Post_ID, user.Name FROM liked_post, post, user WHERE liked_post.Post_ID = post.Post_ID && post.User_ID = user.User_ID ORDER BY liked_post.Post_ID ASC")
+        #cur.execute("SELECT * FROM post WHERE User_ID =%s", [User_ID])
+
+        cur.execute(
+            "SELECT liked_post.Post_ID, user.Name FROM user, liked_post, post WHERE user.User_ID = liked_post.User_ID && post.User_ID = %s && liked_post.Post_ID = post.Post_ID ORDER BY liked_post.Post_ID ASC", [User_ID])
+        test = cur.fetchall()
+
         print(test)
         resp = jsonify(test)
         resp.status_code = 200
@@ -58,6 +87,19 @@ class PostController(Resource):
         return resp
 
     # puts create new post
+    @app.route('/getComments/<User_ID>', methods=['GET'])
+    def get_single_post_comments(User_ID):
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT post_comment.Post_ID, post_comment.Comment, user.Name FROM post_comment, post, user WHERE post_comment.User_ID = user.User_ID && post_comment.Post_ID = post.Post_ID && post.User_ID = %s", [User_ID])
+
+        test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
+
     def put(self, ):
         # args = .parse_args()
         return
