@@ -15,6 +15,9 @@ const EditPost = () => {
     function edit() {
         //submit post to database
     }
+    function goHome() {
+        navigate("/", { replace: true });
+    }
     let p_id = postId == null ? 1 : postId
     const [post,setPost] = useState([]);
     useEffect(() => {
@@ -36,6 +39,7 @@ const EditPost = () => {
             <br/>
             <div className="d-flex justify-content-around">
                 <button className="btn btn-primary" onClick={edit}>Edit Post</button>
+                <button className="btn btn-primary" onClick={goHome}>Home</button>
                 <button className="btn btn-primary" onClick={deletePost}>Delete Post</button>
 
             </div>
