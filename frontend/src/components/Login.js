@@ -31,6 +31,10 @@ const Login = () => {
         <Link to="/home" className="btn btn-primary">
           Login
         </Link>
+
+        <Link to="/register" className="btn btn-primary">
+          Register
+        </Link>
       </form>
     </div>
   );
