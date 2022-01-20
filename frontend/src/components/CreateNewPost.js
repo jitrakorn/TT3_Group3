@@ -1,5 +1,7 @@
 import React, { Component , useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import {Link} from "react-router-dom";
+import Button from "bootstrap/js/src/button";
 const CreatePost = (props) => {
 
     let Username = "Username"
@@ -15,35 +17,27 @@ const CreatePost = (props) => {
         console.log(url)
         console.log(content)
     };
-
+    
     return(
-        <div>
+
             <div class="col-xs-1" align="center">
-                <div class="col-xs-1" align="center">
-                    <h1>New Post</h1>
-                </div>
 
-                <div className="col-xs-1" align="center">
-                    <img src={dp_url} alt="profile_pic" width="80" height="80"/>
+                <h1>New Post</h1>
+                <img  src={dp_url} alt="profile_pic" width="80" height="80"/>
+                <h3>{Username}</h3>
+                <div>
+                    <h3>Please enter url for image</h3>
+                    <input type="url" id="imagePath"/>
                 </div>
-                <div className="col-xs-1" align="center">
-                    <h3>{Username}</h3>
-                </div>
-
-            <div className="col-xs-1" align="center">
-
-                <h3>Please enter url for image</h3>
-                <input type="url" id="imagePath"/>
-            </div>
-            <br/>
-            <div className="col-xs-1" align="center">
+                <br/>
                 <textarea type="text" id="content" rows={10} cols={50} placeholder="Please enter your content"/>
-            </div>
-                <div className="col-xs-1" align="center">
-            <button onClick={handleSubmission}>Submit</button>
+                <div>
+                 <button onClick={handleSubmission} className= "btn btn-primary">Submit</button>
                 </div>
-
-        </div>
+                <br/>
+                <Link to="/"  className="btn btn-primary">
+                   Home
+                </Link>
         </div>
     )
 };
