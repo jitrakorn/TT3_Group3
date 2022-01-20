@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+import "./Login.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -10,84 +15,98 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [details, setDetails] = useState({});
+
+  let navigate = useNavigate();
+
+  const validateForm = () => {
+    return username.length > 0 && password.length > 0;
+  };
+
+  const addUser = () => {
+    // call api to upload user
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    details.username = username;
+    details.password = password;
+    details.age = age;
+    details.birthday = birthday;
+    details.email = email;
+    details.phone = phone;
+    details.city = city;
+    details.country = country;
+
+    console.log(details);
+
+    navigate("/login");
+  };
 
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <form>
-        <div className="p-2">
-          <h1>Register Page</h1>
-        </div>
-        <div className="p-2">
-          <label>Name</label>
-          <input
-            className="register-username"
-            onChange={(e) => setUsername(e.target.value)}
+    <div className="Login">
+      <Form onSubmit={onSubmitHandler}>
+        <h1>Register</h1>
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            autoFocus
+            type="text"
             value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Password</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
-            className="register-password"
-            onChange={(e) => setPassword(e.target.value)}
             value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Age</label>
-          <input
-            className="register-age"
-            onChange={(e) => setAge(e.target.value)}
-            value={age}
-          />
-        </div>
-        <div className="p-2">
-          <label>Date of Birth</label>
-          <input
-            className="register-birthday"
-            onChange={(e) => setBirthday(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Age</Form.Label>
+          <Form.Control value={age} onChange={(e) => setAge(e.target.value)} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control
             value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Email</label>
-          <input
-            className="register-email"
-            onChange={(e) => setEmail(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
             value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Phone Number</label>
-          <input
-            className="register-phone"
-            onChange={(e) => setPhone(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
             value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>City</label>
-          <input
-            className="register-city"
-            onChange={(e) => setCity(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>City</Form.Label>
+          <Form.Control
             value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Country</label>
-          <input
-            className="register-country"
-            onChange={(e) => setCountry(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Country</Form.Label>
+          <Form.Control
             value={country}
+            onChange={(e) => setCountry(e.target.value)}
           />
-        </div>
-        <div>
-          <Link to="/login" className="btn btn-primary">
-            Register
-          </Link>
-        </div>
-      </form>
+        </Form.Group>
+        <Button block className="mb-3" type="submit" disabled={!validateForm()}>
+          Register
+        </Button>
+      </Form>
     </div>
   );
 };

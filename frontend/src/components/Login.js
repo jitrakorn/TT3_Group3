@@ -1,44 +1,51 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+import "./Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  let navigate = useNavigate();
+
+  const validateForm = (username, password) => {
+    // check if valid
+    return true;
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm) navigate("/");
+  };
+
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <form>
-        <div className="p-2">
-          <h1>LoginPage</h1>
-        </div>
-        <div className="p-2">
-          <label>Name</label>
-          <input
-            className="login-username"
-            onChange={(e) => setUsername(e.target.value)}
+    <div className="Login">
+      <Form onSubmit={onSubmit}>
+        <h1>Log In</h1>
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
             value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <label>Password</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
-            className="login-password"
-            onChange={(e) => setPassword(e.target.value)}
             value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <div className="p-2">
-          <Link to="/home" className="btn btn-primary p-2">
-            Login
-          </Link>
-        </div>
-        <div className="p-2">
-          <Link to="/register" className="btn btn-primary p-2">
-            Register
-          </Link>
-        </div>
-      </form>
+        </Form.Group>
+        <Button block className="mb-3" type="submit">
+          Login
+        </Button>
+      </Form>
     </div>
   );
 };
