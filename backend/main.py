@@ -4,8 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-
-app.config['SECRET_KEY'] = 'secretkeyexample'
+# mySQL database credentials
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:OYW_1407_mop@localhost/socialmedia'
 
 db = SQLAlchemy(app)
@@ -21,7 +20,7 @@ class User(db.Model):
     Country = db.Column('Country', db.String(50))
     Password = db.Column('Password', db.String(255))
     
-
+# For getting all users detail in json
 @app.route('/user', methods=['GET'])
 def get_all_users():
     users = User.query.all()
@@ -42,6 +41,7 @@ def get_all_users():
 
     return jsonify({'users' : output})
 
+# For Getting a single user detail
 @app.route('/user/<int:User_ID>', methods=['GET'])
 def get_one_user(User_ID):
     user = User.query.filter_by(User_ID=User_ID).first()
@@ -60,15 +60,17 @@ def get_one_user(User_ID):
     user_data['Password'] = user.Password
     return jsonify({'user' : user_data})
 
+# For creating new user
 @app.route('/user', methods=['POST'])
 def create_user():
     data = request.get_json()
-    hashed_password = data['password'] # can be hashed in the future
-    new_user = User(Name=data['name'], Age=data['age'], Birthday=data['birthday'], Email=data['email'], Phone=data['phone'], City=data['city'], Country=data['country'], Password=hashed_password)
+    password = data['password'] # can be hashed in the future
+    new_user = User(Name=data['name'], Age=data['age'], Birthday=data['birthday'], Email=data['email'], Phone=data['phone'], City=data['city'], Country=data['country'], Password=password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'New user created!'})
 
+# For authentication 
 @app.route('/login/<username>/<password>')
 def login(username, password):
     user = User.query.filter_by(Name=username).first()
@@ -80,14 +82,15 @@ def login(username, password):
 
     return jsonify({'Message': 'Failed Login'}) 
 
-
-# @app.route('/user/<User_ID>', methods=['PUT'])
-# def update_user():
-#     return ''
-
-# @app.route('/user/<User_ID>', methods=['DELETE'])
-# def delete_user():
-#     return ''
-
+# For delete user
+@app.route('/user/<User_ID>', methods=['DELETE'])
+def delete_user(User_ID):
+    user = User.query.filter_by(User_ID=User_ID).first()
+    if not user: 
+        return jsonify({'Message': 'User is not found'})
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({'message' : 'The user has been deleted.'})
+    
 if __name__ == '__main__':
     app.run(debug=True)
