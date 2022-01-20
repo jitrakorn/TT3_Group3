@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../axios";
 
 const Profile = () => {
+    const navigate = useNavigate();
+
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
@@ -28,7 +30,7 @@ const Profile = () => {
             <b>City: </b>{users[0].City}, {users[0].Country} */}
 
             <h1>My Posts</h1>
-            <Link to="/createPost">Create Post</Link>
+            <a onClick={() => navigate(-1)}>Back to Home</a> | <Link to="/createPost">Create Post</Link>
             {posts.map(post => (
                 <div style={postStyle}>
                     <h2> {post[1]} </h2>
