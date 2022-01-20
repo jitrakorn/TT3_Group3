@@ -38,8 +38,8 @@ const EditPost = () => {
             <textarea type="text" id="content" rows={10} cols={50} id="content" value={post['Post_Description']}/>
             <br/>
             <div className="d-flex justify-content-around">
-                <button className="btn btn-primary" onClick={edit}>Edit Post</button>
                 <button className="btn btn-primary" onClick={goHome}>Home</button>
+                <button className="btn btn-primary" onClick={edit}>Edit Post</button>
                 <button className="btn btn-primary" onClick={deletePost}>Delete Post</button>
 
             </div>
