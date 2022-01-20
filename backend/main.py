@@ -91,6 +91,6 @@ def delete_user(User_ID):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message' : 'The user has been deleted.'})
-
+    
 if __name__ == '__main__':
     app.run(debug=True)
