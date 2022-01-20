@@ -2,11 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../axios";
 
-import POST from "../Data/POST.json";
-import POST_COMMENT from "../Data/POST_COMMENT.json";
-import USER from "../Data/USER.json";
-import LIKED_POST from "../Data/LIKED_POST.json";
-
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
@@ -27,7 +22,9 @@ const Home = () => {
     return (
         <div >
             <h1>All Posts</h1>
-            <Link to="/createPost">Create Post button</Link>
+            Welcome, user!&nbsp;
+            <Link to="/profile">View Profile</Link>&nbsp;|&nbsp;
+            <Link to="/createPost">Create Post</Link>
             {posts.map(post => (
                 <div style={postStyle}>
                     <h2> {post[1]} </h2>
