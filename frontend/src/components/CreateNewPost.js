@@ -17,14 +17,7 @@ const CreatePost = (props) => {
         console.log(url)
         console.log(content)
     };
-
-    const handleBack = () => {
-
-
-
-
-    }
-
+    
     return(
 
             <div class="col-xs-1" align="center">
