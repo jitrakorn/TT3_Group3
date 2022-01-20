@@ -21,6 +21,12 @@ const Profile = () => {
 
     return (
         <div >
+            <h1>{users[0].Name}</h1>
+            <b>Birhday: </b>{users[0].Birthday} ({users[0].Age} years old)<br/>
+            <b>Email: </b>{users[0].Email}<br/>
+            <b>Phone: </b>{users[0].Phone}<br/>
+            <b>City: </b>{users[0].City}, {users[0].Country}
+
             <h1>My Posts</h1>
             Create Post button
             {posts.map(post => (
