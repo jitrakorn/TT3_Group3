@@ -8,18 +8,18 @@ const Login = () => {
   return (
     <div className="d-flex align-items-center justify-content-center">
       <form>
-        <div className="mb-3">
+        <div className="p-2">
           <h1>LoginPage</h1>
         </div>
-        <div className="mb-3">
-          <label>Username</label>
+        <div className="p-2">
+          <label>Name</label>
           <input
             className="login-username"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
           />
         </div>
-        <div className="mb-3">
+        <div className="p-2">
           <label>Password</label>
           <input
             type="password"
@@ -28,13 +28,16 @@ const Login = () => {
             value={password}
           />
         </div>
-        <Link to="/home" className="btn btn-primary">
-          Login
-        </Link>
-
-        <Link to="/register" className="btn btn-primary">
-          Register
-        </Link>
+        <div className="p-2">
+          <Link to="/home" className="btn btn-primary p-2">
+            Login
+          </Link>
+        </div>
+        <div className="p-2">
+          <Link to="/register" className="btn btn-primary p-2">
+            Register
+          </Link>
+        </div>
       </form>
     </div>
   );
