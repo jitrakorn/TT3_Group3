@@ -19,11 +19,6 @@ class User(db.Model):
     City = db.Column('City', db.String(50))
     Country = db.Column('Country', db.String(50))
     Password = db.Column('Password', db.String(255))
-
-class Post(db.Model):
-    Post_ID = db.Column('Post_ID',db.Integer, primary_key=True)
-    Post_Image = db.Column('Post_Image', db.String(300))
-    Post_Description = db.Column('Post_Description', db.String(200))
     
 # For getting all users detail in json
 @app.route('/user', methods=['GET'])
@@ -96,15 +91,6 @@ def delete_user(User_ID):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message' : 'The user has been deleted.'})
-
-
-# Deleting post 
-@app.route('/deleteComment/<Post_ID>', methods=['DELETE'])
-def delete_comment(Post_ID):
-    comment = Post.query.filter_by(Post_ID=Post_ID).first()
-    db.session.delete(comment)
-    db.session.commit()
-    return jsonify({'message' : 'The comment has been deleted'})
 
 if __name__ == '__main__':
     app.run(debug=True)
