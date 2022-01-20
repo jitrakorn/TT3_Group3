@@ -15,9 +15,11 @@ const Login = () => {
 
   let navigate = useNavigate();
 
+  const onClickHandler = (e) => {
+    navigate("/register");
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-
     axios.get("http://localhost:5000/user").then((res) => {
       console.log(res.data.users);
 
@@ -31,7 +33,6 @@ const Login = () => {
         }
       });
     });
-
     alert("Not a valid user");
   };
 
@@ -54,9 +55,16 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        <Button block className="mb-3" type="submit">
-          Login
-        </Button>
+        <Form.Group>
+          <Button block className="mb-3" type="submit">
+            Login
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button block className="mb-3" onClick={onClickHandler}>
+            Register
+          </Button>
+        </Form.Group>
       </Form>
     </div>
   );

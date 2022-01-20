@@ -45,11 +45,15 @@ const Register = () => {
       city: city,
       country: country,
     };
-    axios.post("/user", details).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post("http://localhost:5000/user", details)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err.message));
 
     navigate("/login");
+    alert("Registered!");
   };
 
   return (
