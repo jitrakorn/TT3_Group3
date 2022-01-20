@@ -1,9 +1,11 @@
 import React, { Component , useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Button from "bootstrap/js/src/button";
 const CreatePost = (props) => {
 
+
+    const userId = localStorage.getItem('userId');
     let Username = "Username"
     let dp_url = "https://www.shareicon.net/data/128x128/2017/06/21/887406_man_512x512.png"
     if (props.data !== "" || props.data != null)  {
@@ -17,7 +19,7 @@ const CreatePost = (props) => {
         console.log(url)
         console.log(content)
     };
-    
+
     return(
 
             <div class="col-xs-1" align="center">
