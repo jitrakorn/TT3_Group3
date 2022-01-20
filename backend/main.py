@@ -1,5 +1,9 @@
 from flask import Flask
-from flask_restful import Api, Resource, reqparse, abort, fields, marshal_with
-from flask_sqlalchemy import SQLAlchemy
 
-# comments
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'secretkeyexample'
+app.config['SQLALCHEMY_DATABASE_URI'] = ''
+
+if __name__ == '__main__':
+    app.run(debug=True)
