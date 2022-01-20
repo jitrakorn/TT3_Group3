@@ -1,10 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <div>
-      <h1>LoginPage</h1>
-    </div>
+    <>
+      <form>
+        <div className="mb-3">
+          <h1>LoginPage</h1>
+        </div>
+        <div className="mb-3">
+          <label>Username</label>
+          <input
+            className="login-username"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="login-password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
+      </form>
+
+      <Link to="/home" className="btn btn-primary">
+        Login
+      </Link>
+    </>
   );
 };
 
