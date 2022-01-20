@@ -6,7 +6,7 @@ import POST_COMMENT from "../Data/POST_COMMENT.json";
 import USER from "../Data/USER.json";
 import LIKED_POST from "../Data/LIKED_POST.json";
 
-const Home = () => {
+const Profile = () => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
     const [users, setUsers] = useState([]);
@@ -21,11 +21,12 @@ const Home = () => {
 
     return (
         <div >
-            <h1>All Posts</h1>
+            <h1>My Posts</h1>
             Create Post button
             {posts.map(post => (
                 <div style={postStyle}>
                     <h2> {post.Post_Title} </h2>
+                    <span>Edit . Delete</span><br/>
                     <span> {post.Post_Description} </span> <br/>
                     {
                         post.Post_image.includes('format=mp4') ?
@@ -67,7 +68,7 @@ const postStyle = {
 const commentStyle = {
     margin: '20px',
     padding: '20px',
-    border: '1px solid #eee'
+    border: '1px solid #eee',
 }
 
-export default Home;
+export default Profile;
