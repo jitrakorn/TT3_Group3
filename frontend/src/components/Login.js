@@ -6,7 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <>
+    <div className="d-flex align-items-center justify-content-center">
       <form>
         <div className="mb-3">
           <h1>LoginPage</h1>
@@ -28,12 +28,11 @@ const Login = () => {
             value={password}
           />
         </div>
+        <Link to="/home" className="btn btn-primary">
+          Login
+        </Link>
       </form>
-
-      <Link to="/home" className="btn btn-primary">
-        Login
-      </Link>
-    </>
+    </div>
   );
 };
 
