@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../axios";
 
 const Home = () => {
@@ -8,6 +8,8 @@ const Home = () => {
     const [likes, setLikes] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredPosts, setFilteredPosts] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.get(`/getPost`).then(res => {
@@ -31,8 +33,7 @@ const Home = () => {
         <div>
             <h1>All Posts</h1>
             Welcome, user!&nbsp;
-            <Link to="/profile">View Profile</Link>&nbsp;|&nbsp;
-            <Link to="/createPost">Create Post</Link><br />
+            <button className="btn btn-primary" onClick={() => navigate('/profile')}>View Profile</button> | <button className="btn btn-primary" onClick={() => navigate('/createPost')}>Create</button><br/> 
             Search: <input type="text" onChange={onChange}></input>
             {
                 search.length === 0 ?

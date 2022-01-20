@@ -31,12 +31,12 @@ const Profile = () => {
             <b>City: </b>{users[0].City}, {users[0].Country} */}
 
             <h1>My Posts</h1>
-            <a onClick={() => navigate(-1)}>Back to Home</a> | <Link to="/createPost">Create Post</Link>
+            <button className="btn btn-primary" onClick={() => navigate(-1)}>Back to Home</button> | <button className="btn btn-primary" onClick={() => navigate('/createPost')}>Create</button> 
             {posts.map(post => (
                 <div style={postStyle}>
                     <h2> {post[1]} </h2>
                     <div style={{textAlign: 'right'}}>
-                        <Link to={`/editPost/${post[1]}`}>Edit</Link>
+                        <Link to={`/editPost/${post[0]}`}>Edit</Link>
                     </div>
                     <span> {post[2]} </span> <br />
                     {
