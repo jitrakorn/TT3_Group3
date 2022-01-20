@@ -6,9 +6,8 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app)
 app.config['SECRET_KEY'] = 'secretkeyexample'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1111@localhost/socialmedia'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost/socialmedia'
 
 db = SQLAlchemy(app)
 
@@ -97,7 +96,6 @@ def delete_user(User_ID):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message' : 'The user has been deleted.'})
-
-
+    
 if __name__ == '__main__':
     app.run(debug=True)
