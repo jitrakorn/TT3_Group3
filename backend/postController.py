@@ -62,7 +62,7 @@ class PostController(Resource):
         #cur.execute("SELECT * FROM post WHERE User_ID =%s", [User_ID])
 
         cur.execute(
-            "SELECT liked_post.Post_ID, liked_post.User_ID FROM liked_post, post WHERE post.User_ID = %s && liked_post.Post_ID = post.Post_ID ORDER BY liked_post.Post_ID ASC", [User_ID])
+            "SELECT liked_post.Post_ID, user.Name FROM user, liked_post, post WHERE user.User_ID = liked_post.User_ID && post.User_ID = %s && liked_post.Post_ID = post.Post_ID ORDER BY liked_post.Post_ID ASC", [User_ID])
         test = cur.fetchall()
 
         print(test)
@@ -85,6 +85,18 @@ class PostController(Resource):
         return resp
 
     # puts create new post
+    @app.route('/getComments/<User_ID>', methods=['GET'])
+    def get_single_post_comments(User_ID):
+        cur = mysql.connection.cursor()
+        cur.execute(
+            "SELECT post_comment.Post_ID, post_comment.Comment, user.Name FROM post_comment, post, user WHERE post_comment.User_ID = user.User_ID && post_comment.Post_ID = post.Post_ID && post.User_ID = %s", [User_ID])
+
+        test = cur.fetchall()
+        print(test)
+        resp = jsonify(test)
+        resp.status_code = 200
+        print(resp)
+        return resp
 
     def put(self, ):
         # args = .parse_args()
